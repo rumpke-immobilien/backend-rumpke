@@ -4,10 +4,14 @@ import { RumpkeAIDto } from './dtos/rumpkeai.dto';
 import { CreateTipFormDto } from './dtos/create-tip-form.dto';
 import OpenAI from 'openai';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CaptchaService } from 'src/captcha/captcha.service';
 
 @Injectable()
 export class RumpkeaiService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly captchaService: CaptchaService
+  ) {}
 
   private openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
@@ -18,12 +22,21 @@ export class RumpkeaiService {
   }
 
   async submitTipForm(createTipFormDto: CreateTipFormDto) {
+    const { captchaToken, ...formData } = createTipFormDto;
+
+    // Valida el captcha antes de guardar
+    const isValid = await this.captchaService.verify(captchaToken);
+    if (!isValid) {
+      throw new Error('Captcha validation failed');
+    }
+
+    // Guarda el formulario solo si el captcha es válido
     const tipForm = await this.prisma.tipForm.create({
-      data: createTipFormDto,
+      data: formData,
     });
-    const totalSubmissions = await this.prisma.tipForm.count(); // cuenta después de guardar
+    const totalSubmissions = await this.prisma.tipForm.count();
     console.log('Formulario guardado:', tipForm);
-    return { received: tipForm, totalSubmissions }; // retorna el contador actualizado
+    return { received: tipForm, totalSubmissions };
   }
 
   async countTips() {

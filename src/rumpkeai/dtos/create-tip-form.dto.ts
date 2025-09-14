@@ -26,6 +26,9 @@ export class CreateTipFormDto {
   @IsString()
   ownerContact?: string;
 
+  @IsString()
+  captchaToken: string;
+
   @IsEnum(["Urlaub", "E-Bike", "Gutschein", "Küche"])
   prize: "Urlaub" | "E-Bike" | "Gutschein" | "Küche";
 }
