@@ -16,7 +16,7 @@ export const rumpkeAIAssistantUseCase = async (openai: OpenAI, options: Options)
   const { prompt } = options;
   const userInput = prompt.trim().toLowerCase();
 
-  // ✨ Unrelated keyword check
+  
   if (unrelatedKeywords.some(keyword => userInput.includes(keyword))) {
     return {
       message: {
