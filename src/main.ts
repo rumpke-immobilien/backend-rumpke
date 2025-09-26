@@ -16,7 +16,13 @@ async function bootstrap() {
 
 
   app.enableCors({
-
+    origin: [
+      'https://ichschnekedirwas.de',
+      'https://www.ichschnekedirwas.de'
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
   await app.listen(process.env.PORT ?? 3000);

@@ -24,13 +24,12 @@ export class RumpkeaiService {
   async submitTipForm(createTipFormDto: CreateTipFormDto) {
     const { captchaToken, ...formData } = createTipFormDto;
 
-    // Valida el captcha antes de guardar
+
     const isValid = await this.captchaService.verify(captchaToken);
     if (!isValid) {
       throw new Error('Captcha validation failed');
     }
 
-    // Guarda el formulario solo si el captcha es válido
     const tipForm = await this.prisma.tipForm.create({
       data: formData,
     });
