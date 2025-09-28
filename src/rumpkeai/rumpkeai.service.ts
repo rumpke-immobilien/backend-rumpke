@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { EmailService } from '../email/email.service';
 import { rumpkeAIAssistantUseCase } from './use-case/rumpkeai-assistant-use-case';
 import { RumpkeAIDto } from './dtos/rumpkeai.dto';
 import { CreateTipFormDto } from './dtos/create-tip-form.dto';
@@ -10,8 +11,9 @@ import { CaptchaService } from 'src/captcha/captcha.service';
 export class RumpkeaiService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly captchaService: CaptchaService
-  ) {}
+    private readonly captchaService: CaptchaService,
+    private readonly emailService: EmailService
+  ) { }
 
   private openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
@@ -33,8 +35,15 @@ export class RumpkeaiService {
     const tipForm = await this.prisma.tipForm.create({
       data: formData,
     });
+    // Send email notification
+    const emailBody = `New tip submission!\n\nPrize: ${formData.prize}\nName: ${formData.name}\nContact: ${formData.contact}\nAddress: ${formData.address}\nRelation to Owner: ${formData.ownerRelation}\nProperty Address: ${formData.propertyAddress}\nOwner Name: ${formData.ownerName || '-'}\nOwner Contact: ${formData.ownerContact || '-'}\n`;
+    await this.emailService.sendMail({
+      to: 'info@rumpke-immobilien.de',
+      subject: 'New Tip Submission from Form',
+      text: emailBody,
+    });
     const totalSubmissions = await this.prisma.tipForm.count();
-    console.log('Formulario guardado:', tipForm);
+    console.log('Formulario guardado y correo enviado:', tipForm);
     return { received: tipForm, totalSubmissions };
   }
 
