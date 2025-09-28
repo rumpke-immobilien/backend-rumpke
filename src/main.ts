@@ -8,12 +8,8 @@ async function rumpke() {
   app.use(json());
 
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-    }),
-  );
+
+  // ValidationPipe temporarily removed for debugging body parsing
 
 
 
