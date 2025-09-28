@@ -9,10 +9,10 @@ export class EmailController {
   async sendTestEmail(@Body('to') to: string) {
     const mailOptions: SendMailOptions = {
       to,
-      subject: 'Prueba de envío de correo',
-      text: '¡El envío de correo desde el backend funciona correctamente!',
+      subject: 'Test Email from Rumpke Backend',
+      text: 'This is a test email sent from the Rumpke backend using SendGrid integration. If you received this, everything is working!',
     };
     await this.emailService.sendMail(mailOptions);
-    return { message: 'Correo enviado correctamente a ' + to };
+    return { message: 'Email successfully sent to ' + to };
   }
 }

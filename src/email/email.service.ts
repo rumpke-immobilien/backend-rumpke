@@ -2,8 +2,8 @@
 
 
 
-import { Injectable } from '@nestjs/common';
-import nodemailer, { Transporter, SendMailOptions as NodemailerSendMailOptions } from 'nodemailer';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import * as sgMail from '@sendgrid/mail';
 
 
 export interface SendMailOptions {
@@ -16,29 +16,24 @@ export interface SendMailOptions {
 
 @Injectable()
 export class EmailService {
-  private transporter: Transporter;
-
   constructor() {
-    this.transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: false,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-      tls: {
-        ciphers: 'SSLv3',
-        rejectUnauthorized: false,
-      },
-    });
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
   }
 
   async sendMail(options: SendMailOptions): Promise<void> {
-    const mailOptions: NodemailerSendMailOptions = {
-      from: options.from || process.env.SMTP_USER,
-      ...options,
+    const msg: sgMail.MailDataRequired = {
+      to: options.to,
+      from: options.from || process.env.SENDGRID_FROM!,
+      subject: options.subject,
+      // At least one of text or html is required
+      ...(options.html
+        ? { html: options.html, text: options.text || '' }
+        : { text: options.text || '' }),
     };
-    await this.transporter.sendMail(mailOptions);
+    try {
+      await sgMail.send(msg);
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to send email', error?.toString?.());
+    }
   }
 }
