@@ -18,26 +18,47 @@ export class CaptchaService {
   }
 
   async verify(token: string, remoteip?: string): Promise<boolean> {
-    if (!this.secret) return false;
+    if (!this.secret) {
+      console.error('Captcha validation error: CAPTCHA_SECRET is missing');
+      return false;
+    }
     const body = new URLSearchParams({ secret: this.secret, response: token });
     if (remoteip) body.append('remoteip', remoteip);
 
+    // Log environment and request details
+    console.log('[Captcha] Provider:', this.provider);
+    console.log('[Captcha] Endpoint:', this.endpoint());
+    console.log('[Captcha] Using secret:', this.secret.slice(0, 6) + '...' + this.secret.slice(-4));
+    console.log('[Captcha] Token:', token);
+    if (remoteip) console.log('[Captcha] Remote IP:', remoteip);
+
     try {
       const res = await fetch(this.endpoint(), { method: 'POST', body });
-      if (!res.ok) {
-        if (process.env.NODE_ENV !== 'production') {
-          console.warn('Captcha verification failed: Bad response status', res.status);
-        }
+      console.log('[Captcha] HTTP status:', res.status);
+      console.log('[Captcha] HTTP headers:', JSON.stringify(Object.fromEntries(res.headers.entries())));
+      let data: any = null;
+      try {
+        data = await res.json();
+        console.log('[Captcha] Turnstile API response:', data);
+      } catch (jsonErr) {
+        const text = await res.text();
+        console.error('[Captcha] Error parsing JSON. Raw response:', text);
         return false;
       }
-      const data = await res.json();
-      // Log the full response from Turnstile for debugging
-      console.log('Turnstile API response:', data);
+      if (!res.ok) {
+        console.error('[Captcha] Bad response status', res.status, data);
+        return false;
+      }
+      if (!data || typeof data.success === 'undefined') {
+        console.error('[Captcha] No success field in response:', data);
+        return false;
+      }
+      if (!data.success) {
+        console.error('[Captcha] Validation failed. Error codes:', data['error-codes']);
+      }
       return !!data.success;
     } catch (e) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.error('Captcha verification error:', e);
-      }
+      console.error('[Captcha] Exception during fetch:', e);
       return false;
     }
   }
