@@ -31,6 +31,8 @@ export class CaptchaService {
         return false;
       }
       const data = await res.json();
+      // Log the full response from Turnstile for debugging
+      console.log('Turnstile API response:', data);
       return !!data.success;
     } catch (e) {
       if (process.env.NODE_ENV !== 'production') {
