@@ -7,8 +7,6 @@ export class EmailController {
 
   @Post('test')
   async sendTestEmail(@Body() body: { to: string }, @Req() req: any) {
-    console.log('HEADERS:', req.headers);
-    console.log('BODY:', req.body);
     const mailOptions: SendMailOptions = {
       to: body?.to,
       subject: 'Test Email from Rumpke Backend',
