@@ -25,18 +25,15 @@ export class RumpkeaiService {
 
   async submitTipForm(createTipFormDto: CreateTipFormDto) {
     const { captchaToken, ...formData } = createTipFormDto;
-
-
-    // Captcha validation temporarily disabled for testing
-    // const isValid = await this.captchaService.verify(captchaToken);
-    // if (!isValid) {
-    //   throw new Error('Captcha validation failed');
-    // }
+    const isValid = await this.captchaService.verify(captchaToken);
+    if (!isValid) {
+      throw new Error('Captcha validation failed');
+    }
 
     const tipForm = await this.prisma.tipForm.create({
       data: formData,
     });
-    // Send email notification
+
     const emailBody = `New tip submission!\n\nPrize: ${formData.prize}\nName: ${formData.name}\nContact: ${formData.contact}\nAddress: ${formData.address}\nRelation to Owner: ${formData.ownerRelation}\nProperty Address: ${formData.propertyAddress}\nOwner Name: ${formData.ownerName || '-'}\nOwner Contact: ${formData.ownerContact || '-'}\n`;
     await this.emailService.sendMail({
       to: 'info@rumpke-immobilien.de',
@@ -44,7 +41,6 @@ export class RumpkeaiService {
       text: emailBody,
     });
     const totalSubmissions = await this.prisma.tipForm.count();
-    console.log('Formulario guardado y correo enviado:', tipForm);
     return { received: tipForm, totalSubmissions };
   }
 
