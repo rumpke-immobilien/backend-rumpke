@@ -28,7 +28,6 @@ export const rumpkeAIAssistantUseCase = async (openai: OpenAI, options: Options)
     };
   }
 
-  // ✨ Valid input, respond with core info
   const completion = await openai.chat.completions.create({
     messages: [
       {
