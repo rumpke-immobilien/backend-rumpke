@@ -33,15 +33,15 @@
 
 // ; ✅ Teilnahmebedingungen/Tippgeber-Bedingungen: elegibilidad, cuándo se paga, exclusiones (si ya hay Makler),     plazos, importe, fiscalidad. HECHO
 
-// ; ✅ Banner de cookies (si usas analytics con cookies). //*POR HACER
+// ; ✅ Banner de cookies (si usas analytics con cookies).HECHO
 
 
 // ; Email & Dominios
 
-// ; ✅ SMTP de producción + SPF/DKIM/DMARC en tu dominio. //*POR HACER
+// ; ✅ SMTP de producción + SPF/DKIM/DMARC en tu dominio.HECHO
 
 
-// ; ✅ Dirección From y Reply-To verificadas; manejo de rebotes (opcional). //*POR HACER
+// ; ✅ Dirección From y Reply-To verificadas; manejo de rebotes (opcional).HECHO
 
 // ; Backend (Nest) endurecido
 
@@ -52,11 +52,11 @@
 // ; ✅ Validación (class-validator) ya ✔️; añade sanitización básica (escape/strip).HECHO
 
 
-// ; ✅ Health check /health para monitor.//*IMPORTANTE para monitorear -falta dominio real
+// ; ✅ Health check /health para monitor.HECHO
 
 // ; Base de datos & archivos
 
-// ; ✅ Postgres gestionado (Railway/Render/Supabase/etc.) + migraciones y backups diarios. //*POR HACER
+// ; ✅ Postgres gestionado (Railway/Render/Supabase/etc.) + migraciones y backups diarios.HECHO
 
 // ; Frontend
 
@@ -64,20 +64,20 @@
 
 // ; ✅ Imágenes optimizadas (next/image), tamaños/sizes correctos; evitar // en rutas.HECHO
 
-// ; ✅ SEO: <title>, <meta description>, OG/Twitter y og:image.//TODO muy importante hacer
+// ; ✅ SEO: <title>, <meta description>, OG/Twitter y og:image.HECHO
 
-// ; ✅ Schema.org: Organization, FAQPage, WebSite (con SearchAction opcional).//TODO muy importante hacer
+// ; ✅ Schema.org: Organization, FAQPage, WebSite (con SearchAction opcional).HECHO
 
 // ; ✅ Lighthouse móvil: CLS bajo, fuentes display: swap.HECHO
 
 // ; Analytics & Medición
 
-// ; ✅ Consent-aware analytics (GA4/Umami/Pl. Libre).//*Aun no terminado
+// ; ✅ Consent-aware analytics (GA4/Umami/Pl. Libre).HECHO
 
 
 // ; ✅ Variables .env separadas (prod/staging), secrets no en repo.YA HECHO
 
-// ; ✅ Dominio + SSL, DNS listo.//*POR HACER
+// ; ✅ Dominio + SSL, DNS listo.HECHO
 
 
 // ; “Nice to have”
