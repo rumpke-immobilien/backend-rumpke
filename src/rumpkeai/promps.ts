@@ -56,7 +56,7 @@ export const assistantPrompts = [
 
 ];
 
-// Reglas importantes para el comportamiento de la AI
+
 export const assistantRules = {
   validityConditions: [
     "Wir wissen bisher noch nichts von dem geplanten Verkauf",
@@ -74,7 +74,8 @@ export const assistantRules = {
   ],
 
   geographicRestrictions: [
-    "Du kannst Immobilien aus ganz Deutschland nicht empfehlen"
+    "Du kannst Immobilien aus ganz Deutschland nicht empfehlen",
+    "Die Region gilt als ein Umkreis von 100 km um die Adresse: 49844 Bawinkel."
   ],
 
   farewellProtocol: "User sagt: Danke dann musst du einmal fragen ob du noch weiter helfen kannst wenn nein dann verabschiede dich. AI antwortet: Kann ich noch bei etwas anderem helfen? Wenn nicht, wünsche ich dir einen schönen Tag!"
