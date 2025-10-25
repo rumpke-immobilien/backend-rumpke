@@ -34,7 +34,7 @@ export class RumpkeaiService {
       data: formData,
     });
 
-    const emailBody = `Neue Tippgeber-Anfrage!\n\nPrämie: ${formData.praemie}\nName des Tippgebers: ${formData.tippgeberName}\nKontakt des Tippgebers: ${formData.tippgeberKontakt}\nAdresse des Tippgebers: ${formData.tippgeberAdresse}\nPLZ: ${formData.plz}\nStadt: ${formData.stadt}\nBeziehung zum Eigentümer: ${formData.beziehungEigentuemer}\nObjektadresse: ${formData.immobilienAdresse}\nName des Eigentümers: ${formData.eigentuemerName || '-'}\nKontakt des Eigentümers: ${formData.eigentuemerKontakt || '-'}\n`;
+    const emailBody = `Neue Tippgeber-Anfrage!\n\nPrämie: ${formData.praemie}\nName des Tippgebers: ${formData.tippgeberName}\nKontakt des Tippgebers: ${formData.tippgeberKontakt}\nAdresse des Tippgebers: ${formData.tippgeberAdresse}\nPLZ/Stadt: ${formData.plzOderStadt}\nBeziehung zum Eigentümer: ${formData.beziehungEigentuemer}\nObjektadresse: ${formData.immobilienAdresse}\nName des Eigentümers: ${formData.eigentuemerName || '-'}\nKontakt des Eigentümers: ${formData.eigentuemerKontakt || '-'}\n`;
     await this.emailService.sendMail({
       to: 'info@rumpke-immobilien.de',
       subject: 'Neue Tippgeber-Anfrage über das Formular',

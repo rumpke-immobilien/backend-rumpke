@@ -6,6 +6,12 @@ import { ValidateIf } from 'class-validator';
 
 export class CreateTipFormDto {
   @IsString()
+  immobilienAdresse: string;
+
+  @IsOptional()
+  @IsString()
+  eigentuemerKontakt?: string;
+  @IsString()
   tippgeberName: string;
 
   @IsString()
@@ -15,27 +21,12 @@ export class CreateTipFormDto {
   tippgeberAdresse: string;
 
 
-  @ValidateIf(o => !o.stadt)
   @IsString()
-  plz: string;
-
-  @ValidateIf(o => !o.plz)
-  @IsString()
-  stadt: string;
+  plzOderStadt: string;
 
   @IsString()
   beziehungEigentuemer: string;
-
-  @IsString()
-  immobilienAdresse: string;
-
-  @IsOptional()
-  @IsString()
   eigentuemerName?: string;
-
-  @IsOptional()
-  @IsString()
-  eigentuemerKontakt?: string;
 
   @IsString()
   captchaToken: string;
