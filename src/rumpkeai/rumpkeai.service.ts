@@ -27,17 +27,17 @@ export class RumpkeaiService {
     const { captchaToken, ...formData } = createTipFormDto;
     const isValid = await this.captchaService.verify(captchaToken);
     if (!isValid) {
-      throw new Error('Captcha validation failed');
+      throw new Error('Captcha-Validierung fehlgeschlagen');
     }
 
     const tipForm = await this.prisma.tipForm.create({
       data: formData,
     });
 
-    const emailBody = `New tip submission!\n\nPrize: ${formData.prize}\nName: ${formData.name}\nContact: ${formData.contact}\nAddress: ${formData.address}\nRelation to Owner: ${formData.ownerRelation}\nProperty Address: ${formData.propertyAddress}\nOwner Name: ${formData.ownerName || '-'}\nOwner Contact: ${formData.ownerContact || '-'}\n`;
+    const emailBody = `Neue Tippgeber-Anfrage!\n\nPrämie: ${formData.praemie}\nName des Tippgebers: ${formData.tippgeberName}\nKontakt des Tippgebers: ${formData.tippgeberKontakt}\nAdresse des Tippgebers: ${formData.tippgeberAdresse}\nPLZ: ${formData.plz}\nStadt: ${formData.stadt}\nBeziehung zum Eigentümer: ${formData.beziehungEigentuemer}\nObjektadresse: ${formData.immobilienAdresse}\nName des Eigentümers: ${formData.eigentuemerName || '-'}\nKontakt des Eigentümers: ${formData.eigentuemerKontakt || '-'}\n`;
     await this.emailService.sendMail({
       to: 'info@rumpke-immobilien.de',
-      subject: 'New Tip Submission from Form',
+      subject: 'Neue Tippgeber-Anfrage über das Formular',
       text: emailBody,
     });
     const totalSubmissions = await this.prisma.tipForm.count();

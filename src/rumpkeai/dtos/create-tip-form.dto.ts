@@ -2,33 +2,44 @@
 
 import { IsString, IsOptional, IsEnum } from 'class-validator';
 
+import { ValidateIf } from 'class-validator';
+
 export class CreateTipFormDto {
   @IsString()
-  name: string;
+  tippgeberName: string;
 
   @IsString()
-  contact: string;
+  tippgeberKontakt: string;
 
   @IsString()
-  address: string;
+  tippgeberAdresse: string;
+
+
+  @ValidateIf(o => !o.stadt)
+  @IsString()
+  plz: string;
+
+  @ValidateIf(o => !o.plz)
+  @IsString()
+  stadt: string;
 
   @IsString()
-  ownerRelation: string;
+  beziehungEigentuemer: string;
 
   @IsString()
-  propertyAddress: string;
+  immobilienAdresse: string;
 
   @IsOptional()
   @IsString()
-  ownerName?: string;
+  eigentuemerName?: string;
 
   @IsOptional()
   @IsString()
-  ownerContact?: string;
+  eigentuemerKontakt?: string;
 
   @IsString()
   captchaToken: string;
 
   @IsEnum(["Urlaub", "E-Bike", "Gutschein", "Küche"])
-  prize: "Urlaub" | "E-Bike" | "Gutschein" | "Küche";
+  praemie: "Urlaub" | "E-Bike" | "Gutschein" | "Küche";
 }

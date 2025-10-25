@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,14 +8,16 @@ datasource db {
 }
 
 model TipForm {
-  id              Int      @id @default(autoincrement())
-  name            String
-  contact         String
-  address         String
-  ownerRelation   String
-  propertyAddress String
-  ownerName       String?
-  ownerContact    String?
-  prize           String
-  createdAt       DateTime @default(now())
+  id                   Int      @id @default(autoincrement())
+  tippgeberName        String
+  tippgeberKontakt     String
+  tippgeberAdresse     String
+  plz                  String
+  stadt                String
+  beziehungEigentuemer String
+  immobilienAdresse    String
+  eigentuemerName      String?
+  eigentuemerKontakt   String?
+  praemie              String
+  createdAt            DateTime @default(now())
 }

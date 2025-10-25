@@ -10,8 +10,8 @@ export class EmailController {
   async sendTestEmail(@Body() body: { to: string }, @Req() req: any) {
     const mailOptions: SendMailOptions = {
       to: body?.to,
-      subject: 'Test Email from Rumpke Backend',
-      text: 'This is a test email sent from the Rumpke backend using SendGrid integration. If you received this, everything is working!',
+      subject: 'Neue Tippgeber-Anfrage erhalten',
+      text: 'Es wurde eine neue Tippgeber-Anfrage über das Formular eingereicht. Bitte prüfen Sie die Details und nehmen Sie ggf. Kontakt mit dem Interessenten auf.',
     };
     await this.emailService.sendMail(mailOptions);
     return { message: 'Email successfully sent to ' + body?.to };
