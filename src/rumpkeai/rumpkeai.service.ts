@@ -65,7 +65,7 @@ Herzliche Grüße
 Datenschutzhinweis:
 Die Angaben, die du uns im Rahmen deines Tipps übermittelst, werden ausschließlich zur Bearbeitung deines Hinweises verwendet.
 Personenbezogene Daten des möglichen Eigentümers werden von uns nicht gespeichert, sondern nur dann verarbeitet, wenn die Person selbst Kontakt zu uns aufnimmt oder ihre Einwilligung erteilt.
-Weitere Informationen findest du in unserer Datenschutzerklärung https://www.ichschenkedirwas.de/datenschuzt und unseren AGB https://www.ichschenkedirwas.de/agb.`;
+Weitere Informationen findest du auf unserer Webseite unter Datenschutz und AGB.`;
       await this.emailService.sendMail({
         to: formData.tippgeberKontakt,
         subject: 'Vielen Dank für deinen Tipp – und dein Vertrauen!',
