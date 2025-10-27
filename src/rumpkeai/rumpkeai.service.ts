@@ -48,6 +48,7 @@ export class RumpkeaiService {
         subject: 'Vielen Dank für deinen Tipp!',
         text: userEmailBody,
       });
+      
     }
 
     const totalSubmissions = await this.prisma.tipForm.count();
