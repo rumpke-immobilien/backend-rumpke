@@ -45,8 +45,8 @@ export class RumpkeaiService {
     });
 
 
-if (formData.tippgeberKontakt && formData.tippgeberName) {
-  const userEmailBody = `Hallo ${formData.tippgeberName},
+    if (formData.tippgeberKontakt && formData.tippgeberName) {
+      const userEmailBody = `Hallo ${formData.tippgeberName},
 
 herzlichen Dank für deinen Tipp und dein Vertrauen in unsere Arbeit als Immobilienmakler.
 Wir freuen uns sehr, dass du an uns gedacht hast und uns einen möglichen Verkaufshinweis gegeben hast.
@@ -69,12 +69,12 @@ Datenschutzhinweis:
 Die Angaben, die du uns im Rahmen deines Tipps übermittelst, werden ausschließlich zur Bearbeitung deines Hinweises verwendet.
 Personenbezogene Daten des möglichen Eigentümers werden von uns nicht gespeichert, sondern nur dann verarbeitet, wenn die Person selbst Kontakt zu uns aufnimmt oder ihre Einwilligung erteilt.
 Weitere Informationen findest du in unserer Datenschutzerklärung https://www.ichschenkedirwas.de/datenschuzt und unseren AGB https://www.ichschenkedirwas.de/agb.`;
-  await this.emailService.sendMail({
-    to: formData.tippgeberKontakt,
-    subject: 'Vielen Dank für deinen Tipp – und dein Vertrauen!',
-    text: userEmailBody,
-  });
-}
+      await this.emailService.sendMail({
+        to: formData.tippgeberKontakt,
+        subject: 'Vielen Dank für deinen Tipp – und dein Vertrauen!',
+        text: userEmailBody,
+      });
+    }
 
 
     const totalSubmissions = await this.prisma.tipForm.count();
