@@ -25,8 +25,11 @@ export class RumpkeaiService {
 
   async submitTipForm(createTipFormDto: CreateTipFormDto) {
     const { captchaToken, ...formData } = createTipFormDto;
+    console.log('Captcha-Token recibido:', captchaToken);
     const isValid = await this.captchaService.verify(captchaToken);
+    console.log('¿Captcha válido?', isValid);
     if (!isValid) {
+      console.log('Captcha inválido, no se guarda el tip.');
       throw new Error('Captcha-Validierung fehlgeschlagen');
     }
 
