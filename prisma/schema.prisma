@@ -10,6 +10,7 @@ datasource db {
 model TipForm {
   id                   Int      @id @default(autoincrement())
   tippgeberName        String
+
   tippgeberKontakt     String
   tippgeberAdresse     String
   plzOderStadt         String

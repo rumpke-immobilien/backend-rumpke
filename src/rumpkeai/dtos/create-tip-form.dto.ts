@@ -1,6 +1,6 @@
 
 
-import { IsString, IsOptional, IsEnum } from 'class-validator';
+import { IsString, IsOptional, IsEnum, IsEmail } from 'class-validator';
 
 import { ValidateIf } from 'class-validator';
 
@@ -14,7 +14,7 @@ export class CreateTipFormDto {
   @IsString()
   tippgeberName: string;
 
-  @IsString()
+  @IsEmail()
   tippgeberKontakt: string;
 
   @IsString()
